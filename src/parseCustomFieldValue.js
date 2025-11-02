@@ -1,11 +1,13 @@
 // @ts-check
 
+import assert from 'node:assert/strict'
 import { customParamTypeParsers } from './customParamTypeParsers.js'
 import {
 	embeddedParamTypeParsers,
 	stringParser
 } from './embeddedParamTypeParsers.js'
 import { extractFieldTypeNotation } from './extractFieldTypeNotation.js'
+import { typeOf } from './tools.js'
 
 /**
  * @param { unknown } value
@@ -27,13 +29,15 @@ export function parseCustomFieldValue(value, paramConfig) {
 	if (parseCustomTypeParam) {
 		// string_array
 		if (paramConfig.type === 'string_array') {
-			value = /** @type { unknown[] } */ (value).map((val, index) => {
+			assert.ok(Array.isArray(value))
+
+			value = value.map((val, index) => {
 				try {
 					return parseCustomTypeParam(stringParser(val), paramConfig)
 				} catch (/** @type { any } */ err) {
 					throw new TypeError(
 						`Can't parse "${paramConfig.title}" parameter item` +
-							` at index ${index} as ${customTypeName} type - ${err?.message}`,
+							` at index ${index} as ${customTypeName} type: ${err?.message}`,
 						{ cause: err }
 					)
 				}
@@ -42,6 +46,8 @@ export function parseCustomFieldValue(value, paramConfig) {
 
 		// string_to_string
 		else if (paramConfig.type === 'string_to_string') {
+			assert.ok(typeOf(value) === '[object Object]')
+
 			value = Object.fromEntries(
 				Object.entries(/** @type { Record<string, string> } */ (value)).map(
 					ent => {
@@ -53,7 +59,7 @@ export function parseCustomFieldValue(value, paramConfig) {
 						} catch (/** @type { any } */ err) {
 							throw new TypeError(
 								`Can't parse "${paramConfig.title}" parameter value` +
-									` at key "${ent[0]}" as ${customTypeName} type - ${err?.message}`,
+									` at key "${ent[0]}" as ${customTypeName} type: ${err?.message}`,
 								{ cause: err }
 							)
 						}
@@ -64,7 +70,14 @@ export function parseCustomFieldValue(value, paramConfig) {
 
 		// default
 		else {
-			value = parseCustomTypeParam(value, paramConfig)
+			try {
+				value = parseCustomTypeParam(value, paramConfig)
+			} catch (/** @type { any } */ err) {
+				throw new TypeError(
+					`Can't parse "${paramConfig.title}" parameter value` +
+						` as ${customTypeName} type: ${err?.message}`
+				)
+			}
 		}
 	}
 

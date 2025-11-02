@@ -343,7 +343,7 @@ suite('CustomParams', () => {
 		})
 	})
 
-	suite.only('string_array', () => {
+	suite('string_array', () => {
 		test('basic', async (/** @type { TestContext } */ t) => {
 			t.plan(2)
 
