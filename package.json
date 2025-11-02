@@ -1,0 +1,32 @@
+{
+	"name": "@latenode/js-node-bootstrap",
+	"private": true,
+	"version": "0.0.0",
+	"main": "dist/bundle.js",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"bundle": "rollup -c"
+	},
+	"author": "Vitaliy V. Makeev",
+	"description": "",
+	"license": "ISC",
+	"prettier": {
+		"semi": false,
+		"singleQuote": true,
+		"quoteProps": "consistent",
+		"trailingComma": "none",
+		"arrowParens": "avoid"
+	},
+	"dependencies": {
+		"jmespath": "^0.16.0"
+	},
+	"devDependencies": {
+		"@tsconfig/node24": "^24",
+		"@tsconfig/strictest": "^2.0.7",
+		"@types/jmespath": "^0.15.2",
+		"@types/node": "^24",
+		"rollup": "^4.52.5",
+		"typescript": "^5.9.3"
+	}
+}

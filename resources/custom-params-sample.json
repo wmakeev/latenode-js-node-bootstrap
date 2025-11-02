@@ -1,0 +1,175 @@
+{
+	"connectionParam": {
+		"type": "connection",
+		"title": "Connection parameter",
+		"required": false,
+		"description": "Enter connection"
+	},
+
+	"stringParameter": {
+		"type": "string",
+		"title": "String parameter",
+		"required": false,
+		"description": "Enter string",
+		"options": {
+			"minLength": 10
+		}
+	},
+
+	"stringParameter2": {
+		"type": "string",
+		"title": "String parameter #2",
+		"required": false,
+		"description": "Enter string",
+		"options": {
+			"minLength": 0
+		}
+	},
+
+	"stringJsonParameter": {
+		"type": "string",
+		"title": "JSON string parameter",
+		"required": false,
+		"description": "**JSON**: Enter json string",
+		"options": {
+			"minLength": 2
+		}
+	},
+
+	"intParameter": {
+		"type": "int",
+		"title": "Integer parameter",
+		"required": true,
+		"description": "Enter parameter",
+		"options": {
+			"min": 50,
+			"max": 100
+		}
+	},
+
+	"stringArrayParameter": {
+		"type": "string_array",
+		"title": "String array parameter",
+		"required": false,
+		"description": "Enter parameter",
+		"options": {
+			"maxCount": 5
+		}
+	},
+
+	"jsonStringArrayParameter": {
+		"type": "string_array",
+		"title": "JSON strings array parameter",
+		"required": false,
+		"description": "**JSON**: Enter parameter",
+		"options": {
+			"maxCount": 5
+		}
+	},
+
+	"stringToStringParameter": {
+		"type": "string_to_string",
+		"title": "String to String parameter",
+		"required": false,
+		"description": "Enter parameter",
+		"options": {
+			"maxCount": 2
+		}
+	},
+
+	"stringToJsonStringParameter": {
+		"type": "string_to_string",
+		"title": "String to JSON string parameter",
+		"required": false,
+		"description": "**JSON**: Enter parameter",
+		"options": {
+			"maxCount": 2
+		}
+	},
+
+	"selectParameter": {
+		"type": "select",
+		"title": "Select parameter",
+		"required": false,
+		"description": "Enter parameter",
+		"options": {
+			"options": [
+				{ "key": "SelectOptionKey1", "value": "SelectOptionValue1" },
+				{ "key": "SelectOptionKey2", "value": "SelectOptionValue2" }
+			],
+			"multiple": false
+		}
+	},
+
+	"multiSelectParameter": {
+		"type": "select",
+		"title": "Multi-select parameter",
+		"required": false,
+		"description": "Enter parameter",
+		"options": {
+			"options": [
+				{
+					"key": "MultiSelectOptionKey1",
+					"value": "MultiSelectOptionValue1"
+				},
+				{
+					"key": "MultiSelectOptionKey2",
+					"value": "MultiSelectOptionValue2"
+				}
+			],
+			"multiple": true
+		}
+	},
+
+	"boolParameter": {
+		"type": "bool",
+		"title": "Bool parameter",
+		"required": false,
+		"description": "Enter parameter"
+	},
+
+	"sample.str": {
+		"type": "string",
+		"title": "(Sample) String parameter",
+		"required": false,
+		"description": "Enter string",
+		"options": {
+			"minLength": 0
+		}
+	},
+
+	"sample.bool": {
+		"type": "bool",
+		"title": "(Sample) Bool parameter",
+		"required": false,
+		"description": "Enter parameter"
+	},
+
+	"resultVariable": {
+		"type": "string",
+		"title": "Result variable",
+		"required": false,
+		"description": "The variable name where the result will be placed after node execution"
+	},
+
+	"resultSelector": {
+		"type": "string",
+		"title": "Result selector",
+		"required": false,
+		"description": "[JMESpath](https://jmespath.org/tutorial.html) query language selector applied to the result before returning it. Online [expression tester](https://play.jmespath.org/)."
+	},
+
+	"errorVariable": {
+		"type": "string",
+		"title": "Error variable",
+		"required": false,
+		"description": "The variable name where the catched error will be placed"
+	},
+
+	"shouldHandleError": {
+		"type": "bool",
+		"title": "Catch error",
+		"required": false,
+		"description": "Should return an error in result, rather than throwing it away"
+	}
+}
