@@ -9,6 +9,7 @@ import assert from 'node:assert/strict'
 export const stringParser = value => {
 	if (value === 'null') return null
 	if (value === '') return undefined
+	if (value == null) return value
 	if (typeof value !== 'string') return String(value)
 	return value
 }
