@@ -20,6 +20,20 @@
 		{
       "type": "node",
       "request": "launch",
+      "name": "Test ${file}",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+			"runtimeArgs": ["--test-reporter=spec"],
+      "program": "${file}",
+      "envFile": "${workspaceFolder}/.env",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std"
+    },
+
+		{
+      "type": "node",
+      "request": "launch",
       "name": "Test --test-only ${file}",
       "skipFiles": [
         "<node_internals>/**"
