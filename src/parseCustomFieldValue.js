@@ -1,7 +1,6 @@
 // @ts-check
 
 import assert from 'node:assert/strict'
-import { customParamTypeParsers } from './customParamTypeParsers.js'
 import {
 	embeddedParamTypeParsers,
 	stringParser
@@ -12,9 +11,14 @@ import { typeOf } from './tools.js'
 /**
  * @param { unknown } value
  * @param { Nodul.CustomParamsConfigValue } paramConfig
+ * @param { Record<string, Nodul.CustomTypeParser> } customParamTypeParsers
  * @returns
  */
-export function parseCustomFieldValue(value, paramConfig) {
+export function parseCustomFieldValue(
+	value,
+	paramConfig,
+	customParamTypeParsers
+) {
 	const parseEmbeddedTypeParam = embeddedParamTypeParsers[paramConfig.type]
 
 	value = parseEmbeddedTypeParam
@@ -37,7 +41,7 @@ export function parseCustomFieldValue(value, paramConfig) {
 				} catch (/** @type { any } */ err) {
 					throw new TypeError(
 						`Can't parse "${paramConfig.title}" parameter item` +
-							` at index ${index} as ${customTypeName} type: ${err?.message}`,
+							` at index ${index} as "${customTypeName}" type: ${err?.message}`,
 						{ cause: err }
 					)
 				}
@@ -59,7 +63,7 @@ export function parseCustomFieldValue(value, paramConfig) {
 						} catch (/** @type { any } */ err) {
 							throw new TypeError(
 								`Can't parse "${paramConfig.title}" parameter value` +
-									` at key "${ent[0]}" as ${customTypeName} type: ${err?.message}`,
+									` at key "${ent[0]}" as "${customTypeName}" type: ${err?.message}`,
 								{ cause: err }
 							)
 						}
@@ -75,7 +79,7 @@ export function parseCustomFieldValue(value, paramConfig) {
 			} catch (/** @type { any } */ err) {
 				throw new TypeError(
 					`Can't parse "${paramConfig.title}" parameter value` +
-						` as ${customTypeName} type: ${err?.message}`
+						` as "${customTypeName}" type: ${err?.message}`
 				)
 			}
 		}

@@ -1,3 +1,5 @@
 jmespath
 latenode
+mydate
+mytype
 Nodul

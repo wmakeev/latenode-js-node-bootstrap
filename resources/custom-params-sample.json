@@ -16,17 +16,7 @@
 		}
 	},
 
-	"stringParameter2": {
-		"type": "string",
-		"title": "String parameter #2",
-		"required": false,
-		"description": "Enter string",
-		"options": {
-			"minLength": 0
-		}
-	},
-
-	"stringJsonParameter": {
+	"jsonStringParameter": {
 		"type": "string",
 		"title": "JSON string parameter",
 		"required": false,
@@ -163,7 +153,7 @@
 		"type": "string",
 		"title": "Error variable",
 		"required": false,
-		"description": "The variable name where the catched error will be placed"
+		"description": "The variable name where the caught error will be placed."
 	},
 
 	"shouldHandleError": {

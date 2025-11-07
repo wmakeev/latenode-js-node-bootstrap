@@ -3,14 +3,19 @@
 import jmespath from 'jmespath'
 import { CUSTOM_PARAMS_CONFIG_REGEX } from './consts.js'
 import { parseDataRecord } from './parseDataRecord.js'
+import { customParamTypeParsers } from './customParamTypeParsers/index.js'
+
+export * from './customParamTypeParsers/JsonValueParser.js'
+export * from './customParamTypeParsers/DateValueParser.js'
 
 /**
  *
  * @param { Nodul.LogicFunction } logic
  * @param { Nodul.RunParams } params
+ * @param { Nodul.GetRunOptions } options
  * @returns { Promise<Nodul.RunResults> }
  */
-async function run(logic, params) {
+async function run(logic, params, options) {
 	try {
 		/** @type { Nodul.CustomParamsConfig | null } */
 		let customParamsConfig = null
@@ -30,7 +35,7 @@ async function run(logic, params) {
 			params:
 				customParamsConfig == null
 					? {}
-					: parseDataRecord(params.data, customParamsConfig),
+					: parseDataRecord(params.data, customParamsConfig, options),
 			customParamsConfig
 		})
 
@@ -43,16 +48,13 @@ async function run(logic, params) {
 			result = jmespath.search(result, resultSelector)
 		}
 
+		// resultVariable
 		if (
 			typeof resultVariable === 'string' &&
 			resultVariable.trim() !== '' &&
 			resultVariable !== 'null'
 		) {
-			if (resultVariable !== resultVariable.trim())
-				throw new TypeError(
-					`Extra spaces in result variable name - "${resultVariable}"`
-				)
-			await params.store.setVariable(resultVariable, result)
+			await params.store.setVariable(resultVariable.trim(), result)
 		}
 
 		return { result, error: null }
@@ -82,10 +84,18 @@ async function run(logic, params) {
 
 /**
  * @param { Nodul.LogicFunction } logic
+ * @param { Nodul.GetRunOptions } [options]
  * @returns { Nodul.RunFunction }
  */
-export function getRun(logic) {
-	return async params => run(logic, params)
-}
+export function getRun(logic, options) {
+	/** @type { Nodul.GetRunOptions } */
+	const options_ = {
+		...options,
+		customParamTypeParsers: {
+			...customParamTypeParsers,
+			...options?.customParamTypeParsers
+		}
+	}
 
-// TODO Base64 parse
+	return async params => run(logic, params, options_)
+}

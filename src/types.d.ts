@@ -48,8 +48,8 @@ namespace Nodul {
 
 	type CustomParamBase = {
 		title: string
-		required: boolean
-		description: string
+		required?: boolean
+		description?: string
 	}
 
 	type CustomParam =
@@ -95,4 +95,13 @@ namespace Nodul {
 	type CustomParamsConfigValue = CustomParam & CustomParamBase
 
 	type CustomParamsConfig = Record<string, CustomParamsConfigValue>
+
+	type CustomTypeParser = (
+		value: unknown,
+		paramConfig: CustomParamsConfigValue
+	) => unknown
+
+	interface GetRunOptions {
+		customParamTypeParsers: Record<string, CustomTypeParser>
+	}
 }

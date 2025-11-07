@@ -6,18 +6,23 @@ import { parseCustomFieldValue } from './parseCustomFieldValue.js'
 /**
  * @param { Nodul.DataRecord } data
  * @param { Nodul.CustomParamsConfig } customParamsConfig
+ * @param { Nodul.GetRunOptions } options
  * @returns { { [P: string]: unknown } }
  */
-export function parseDataRecord(data, customParamsConfig) {
+export function parseDataRecord(data, customParamsConfig, options) {
 	/** @type { { [P: string]: unknown } } */
 	const result = {}
 
-	if (customParamsConfig == null) return result
+	assert.ok(customParamsConfig)
 
 	for (const [paramName, paramConfig] of Object.entries(customParamsConfig)) {
 		const paramValue = data[paramName]
 
-		const value = parseCustomFieldValue(paramValue, paramConfig)
+		const value = parseCustomFieldValue(
+			paramValue,
+			paramConfig,
+			options.customParamTypeParsers
+		)
 		if (value === undefined) continue
 
 		const keys = paramName.split('.')

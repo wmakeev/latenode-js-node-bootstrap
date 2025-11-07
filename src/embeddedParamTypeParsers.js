@@ -58,9 +58,10 @@ export const embeddedParamTypeParsers = {
 		return Object.fromEntries(entries)
 	},
 
-	select: value => {
+	select: (value, paramConfig) => {
 		if (value == null) return value
 		assert.ok(Array.isArray(value))
-		return value?.[0]
+		assert.ok(paramConfig.type === 'select')
+		return paramConfig.options?.multiple ? value : value?.[0]
 	}
 }
