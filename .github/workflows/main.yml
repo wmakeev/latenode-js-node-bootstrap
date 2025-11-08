@@ -1,0 +1,48 @@
+name: Test and coverage action
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 20.18.1
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests and generate coverage
+        run: npm run test
+        # env:
+        #   SECRET: ${{ secrets.SECRET }}
+
+      - name: Commit coverage report
+        # This action will commit the coverage-summary.json file to the repo.
+        # It only runs if the file has changed.
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update coverage report
+          file_pattern: 'coverage/coverage-summary.json'
+          # Optional: Add a token with push access if your repo is private
+          # commit_user_name: my-github-actions-bot
+          # commit_user_email: my-github-actions-bot@users.noreply.github.com
