@@ -36,13 +36,13 @@ jobs:
         # env:
         #   SECRET: ${{ secrets.SECRET }}
 
-      - name: Commit coverage report
+      - name: Commit coverage badge data
         # This action will commit the coverage-summary.json file to the repo.
         # It only runs if the file has changed.
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update coverage report
-          file_pattern: 'coverage/coverage-summary.json'
+          file_pattern: 'badges/coverage.json'
           # Optional: Add a token with push access if your repo is private
           # commit_user_name: my-github-actions-bot
           # commit_user_email: my-github-actions-bot@users.noreply.github.com

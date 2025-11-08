@@ -13,7 +13,7 @@
 		"coverage": "c8 node --test",
 		"coverage:report": "c8 report --reporter=json-summary",
 		"test": "npm run coverage && npm run coverage:report",
-		"posttest": "npx node-jq '{total}' coverage/coverage-summary.json > coverage/coverage-summary.tmp && mv coverage/coverage-summary.tmp coverage/coverage-summary.json",
+		"posttest": "node scripts/coverage-badge.js",
 		"release": "np"
 	},
 	"engines": {
