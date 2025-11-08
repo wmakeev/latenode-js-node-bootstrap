@@ -11,8 +11,8 @@
 	"scripts": {
 		"bundle": "rollup -c",
 		"coverage": "c8 node --test",
-		"coverage:report": "c8 report",
-		"test": "npm run coverage",
+		"coverage:report": "c8 report --reporter=json-summary",
+		"test": "npm run coverage && npm run coverage:report",
 		"release": "np"
 	},
 	"engines": {
