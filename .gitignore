@@ -15,8 +15,7 @@ node_modules
 !.env.example
 
 # coverage
-/coverage/*
-!/coverage/coverage-summary.json
+/coverage
 
 # temp
 /__temp
